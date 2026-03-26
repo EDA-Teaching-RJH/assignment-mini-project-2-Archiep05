@@ -16,6 +16,10 @@ class MuscleGroup:
     def __str__(self):
         return f"{self.name} ({len(self.exercises)} exercises)"
 
+CHEST = MuscleGroup("Chest" ["Barbell Bench Press" "Barbell Bench Press","Dumbbell Bench Press",
+    "Incline Barbell Bench Press","Incline Dumbbell Bench Press","Chest Fly","Push Up"])
+
+
        
 
 
