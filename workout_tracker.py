@@ -12,6 +12,42 @@ class WorkoutSession:
         self.total_weight = total_weight
         self.date = date or datetime.now().strftime("%d/%m/%Y")
     
+class WorkoutLog:
+    def __init__(self, filename="workout_data.csv"):
+        self.filename = filename
+        self.sessions = []
+        self.load_from_csv()
 
+    def log_session(self, session):
+        self.sessions.append(session)
+        self.save_to_csv(session)
+
+    def save_to_csv(self, session):
+        file_exists = os.path.exists(self.filename)
+        with open(self.filename, "a", newline="") as file:
+            writer = csv.writer(file)
+            if not file_exists:
+                writer.writerow(["date", "exercise", "muscle_group",
+                                 "equipment", "sets", "reps","weight_per_set", "total_weight"])
+
+            writer.writerow([
+                session.date,
+                session.exercise.name,
+                session.exercise.muscle_group,
+                session.exercise.equipment,
+                session.sets,
+                session.reps,
+                session.weight_per_set,
+                session.total_weight
+            ])
+
+    def load_from_csv(self):
+        if not os.path.exists(self.filename):
+            return
+
+        with open(self.filename, "r") as file:
+            reader = csv.DictReader(file)
+            for row in reader:
+                self.sessions.append(row)
     
   
