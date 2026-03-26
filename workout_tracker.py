@@ -50,4 +50,26 @@ class WorkoutLog:
             for row in reader:
                 self.sessions.append(row)
     
+    def get_pr(self, exercise_name, weight):
+        best_reps=0
+        for session in self.sessions:
+            if isinstance(session, dict):
+                if (session["exercise"] == exercise_name and
+                        float(session["weight_per_set"]) == float(weight)):
+                    if int(session["reps"]) > best_reps:
+                        best_reps = int(session["reps"])
+        return best_reps
+    def get_cumulative_weight(self, exercise_name=None):
+       
+        total = 0
+
+        for session in self.sessions:
+            if isinstance(session, dict):
+                if exercise_name is None or session["exercise"] == exercise_name:
+                    total += float(session["total_weight"])
+
+        return total               
+
+
+    
   
