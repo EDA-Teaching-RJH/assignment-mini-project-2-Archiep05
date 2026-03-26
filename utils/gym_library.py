@@ -37,6 +37,24 @@ LEGS = MuscleGroup("Legs", ["Barbell Squat","Leg Press","Bulgarian Split Squat",
 
 ALL_GROUPS = [CHEST, BACK, BICEPS, TRICEPS, SHOULDERS, LEGS,]
 
+def calculate_weight_total(weight,equipment,bodyweight=None):
+    if equipment == "dumbbell":
+        return weight * 2
+    elif equipment == "barbell":
+        return weight
+    elif equipment == "bodyweight":
+        if bodyweight is None:
+            raise ValueError("Bodyweight must be provided for bodyweight exercises")
+        return bodyweight
+    elif equipment == "weighted_bodyweight":
+        if bodyweight is None:
+            raise ValueError("Bodyweight must be provided for weighted bodyweight exercises")
+        return bodyweight + weight
+    else:
+        raise ValueError(f"Unknown equipment type: {equipment}")
+    
+
+
 
        
 
