@@ -5,7 +5,7 @@ from workout_tracker import WorkoutLog, WorkoutSession
 from utils.gym_library import ALL_GROUPS, calculate_volume
 from utils.validators import is_valid_name, is_valid_weight, is_valid_reps, is_valid_sets
 
-MUSCLE_CLASS_MAP = {
+MUSCLE_CLASS_MAP = {      # maps muscle groups names to their class
     "Chest": ChestExercise,
     "Back": BackExercise,
     "Biceps": BicepsExercise,
@@ -14,7 +14,7 @@ MUSCLE_CLASS_MAP = {
     "Legs": LegsExercise}
 
 def get_user_bodyweight():
-    while True:
+    while True:   #keeps asking until we get a vlid number
         bw = input("Enter your bodyweight (kg): ").strip()
         if is_valid_weight(bw):
             return float(bw)
@@ -36,7 +36,7 @@ def select_muscle_group():
     while True:
         choice = input("\nChoose a muscle group: ").strip()
         if choice.isdigit() and 1 <= int(choice) <= len(ALL_GROUPS):
-            return ALL_GROUPS[int(choice) - 1]
+            return ALL_GROUPS[int(choice) - 1] 
         print("Invalid. Please enter a number from the list.")
 
 def select_exercise(muscle_group):
@@ -57,7 +57,7 @@ def select_exercise(muscle_group):
                 return add_custom_exercise(muscle_group)
         print("Invalid. Please enter a number from the list.")
 
-def add_custom_exercise(muscle_group):
+def add_custom_exercise(muscle_group):   #allows use to add custom exercise
     while True:
         name = input("Enter custom exercise name: ").strip()
         if is_valid_name(name):
@@ -138,7 +138,7 @@ def log_workout(log, bodyweight):
 
     exercise_class = MUSCLE_CLASS_MAP[muscle_group.name]
     exercise = exercise_class(exercise_name, equipment)
-    volume = calculate_volume(sets, reps, total_weight)
+    volume = calculate_volume(sets, reps, total_weight)  #calulates total volume to show user
 
     session = WorkoutSession(exercise, sets, reps, weight_per_set, total_weight)
     log.log_session(session)
@@ -221,7 +221,7 @@ def main_menu(log, bodyweight):
         else:
             print("Invalid choice. Please enter a number from 1-5.")
 
-if __name__ == "__main__":
+if __name__ == "__main__":  #only runs when main run dircetly not when imported
     log = WorkoutLog()
     bodyweight = welcome()
     main_menu(log, bodyweight)
